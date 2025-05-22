@@ -1,0 +1,182 @@
+version: 2
+
+sources:
+	- name: ecomerce
+		description: "Dados da nossa loja de e-ecomerce"
+		schema: dbt_dw_raw # esquema do banco de dados
+		loader: bigquery # local onde o dados está localizado
+
+
+		tables:
+			- name: avaliacoes
+			description: "Tabela de avaliações dos produtos"
+			columns:
+				- name: cliente_id
+					description: "Chave estrangeira do cliente que fez a avaliação"
+					data_test:
+						- name: not_null
+
+				- name: produto_id
+					description: "Chave estrangeira do cliente que fez a avaliação"
+					data_test:
+						- name: not_null
+
+				- name: nota
+					description: "Nota de avaliação"
+
+				- name: comentario
+					description: "Comentário da avaliação"
+
+				- name: data_avaliacao
+					description: "Data da avaliação"
+
+
+			- name: carrinho
+			description: "Tabela de carrinhos de compras"
+			columns:
+				- name:	cliente_id
+					description: "Chave estrangeira do cliente no carrinho de compra"
+					data_test:
+						- name: not_null
+
+				- name:	produto_id
+					description: "Chave estrangeira do produto no carrinho de compra"
+					data_test:
+						- name: not_null
+
+				- name:	quantidade
+					description: "Quantidade do item no carrinho de compra"
+
+				- name:	data_adicionado
+					description: "Data que o produto foi adicionado no carrinho"
+
+			- name: categorias
+			description: "Tabela de categorias dos produtos"
+			columns:
+				- name: id
+					description: "Chave primária da categoria"
+					data_test:
+						- name: not_null
+						- name: unique
+
+				- name: nome
+					description: "Descrição da categoria"
+
+			- name: clientes
+			description: "Tabela de clientes"
+			columns:
+				- name:	id
+					description: "Chave primária do cliente"
+					data_test:
+						- name: not_null
+						- name: unique
+
+				- name:	nome
+					description: "Nome do cliente"
+
+				- name:	email
+					description: "Email do cliente"
+
+				- name:	telefone
+					description: "Número de telefone"
+
+				- name:	data_registro
+					description: "Data do registro do cliente"
+
+			- name: itens_pedidos
+			description: "Tabela de itens dos pedidos"
+			columns:
+				- name: pedido_id
+					description: "Chave estrangeira do pedido"
+					data_test:
+						- name: not_null
+
+				- name: produto_id
+					description: "Chave estrangeira do produto"
+					data_test:
+						- name: not_null
+
+				- name: quantidade
+					description: "Quantidade do item"
+
+				- name: preco_unitario
+					description: "Valor unitário do item"
+
+				- name: subtotal
+					description: "Valot do subtotal do item"
+
+
+			- name: pagamentos
+			description: "Tabela de pagamento"
+			columns:
+				- name: id
+					description: "Chave primário do pagamento"
+					data_test:
+						- name: not_null
+						- name: unique
+
+				- name: pedido_id
+					description: "Chave estrangeira do pedido"
+					data_test:
+						- name: not_null
+
+				- name: valor
+					description: "Valor do pagamento"
+
+				- name: metodo
+					description: "Tipo do pagamento"
+
+				- name: status
+					description: "Status do pagamento"
+
+				- name: data_pagamento
+					description: "Data do pagamento"
+
+
+			- name: pedidos
+			description: "Tabela de pedidos"
+			columns:
+				- name: id
+					description: "Chave primário do pedido"
+
+				- name: cliente_id
+					description: "Chave estrangeira do cliente"
+
+				- name: endereco_id
+					description: "Chave estrangeira do endereço"
+
+				- name: data_pedido
+					description: "Data do pedido"
+
+				- name: status
+					description: "Status do pedido"
+
+			- name: produtos
+			description: "Tabela de produtos"
+			columns:
+				- name: id
+					description: "Chave primário do produto"
+					data_test:
+						- name: not_null
+
+				- name: nome
+					description: "Nome do produto"
+
+				- name: descricao
+					description: "Descrição do produto"
+
+				- name: categoria_id
+					description: "Chave estrangeira da categoria"
+
+				- name: preco
+					description: "Preço do produto"
+
+				- name: marca
+					description: "marca do produto"
+
+				- name: estoque
+					description: "Estoque do produto"
+
+				- name: data_cadastro
+					description: "Data do cadastro"
+
